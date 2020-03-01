@@ -1,11 +1,13 @@
 <template>
   <q-page class="column content-stretch fit">
     <div class="flex justify-around q-pa-sm ">
-      <q-chip v-for="player in players" square>
+      <q-chip  :class="[player === activePlayer ? 'bg-positive' : '']" v-for="player in players" square>
         <q-avatar>
           <img :src="player.avatarUrl">
         </q-avatar>
+        <q-chip v-show="player === players[1] && isAiActivated"> AI </q-chip>
         {{ player.name }} : {{ player.score }}
+        
       </q-chip>
      </div>
     <div class="flex grow-2 grid-container-custom flex-center" v-if="!gameOver" @aiHasBennToggled>
