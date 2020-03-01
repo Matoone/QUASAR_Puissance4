@@ -1,6 +1,6 @@
 <template>
-  <q-page class="flex flex-center column">
-    <div class="flex justify-around q-pa-md">
+  <q-page class="column content-stretch fit">
+    <div class="flex justify-around q-pa-sm ">
       <q-chip v-for="player in players" square>
         <q-avatar>
           <img :src="player.avatarUrl">
@@ -8,14 +8,16 @@
         {{ player.name }} : {{ player.score }}
       </q-chip>
      </div>
-    <div v-if="!gameOver" @aiHasBennToggled>
-      <div class="row no-wrap justify-center ">
-        <div class="column reverse" v-for="(column, colIndex) in grid">
-          <div class="cell flex justify-center items-center" v-for="cell in column">
+    <div class="flex grow-2 grid-container-custom flex-center" v-if="!gameOver" @aiHasBennToggled>
+      <div class="row no-wrap justify-center flex ">
+        <div class="column reverse column-custom" v-for="(column, colIndex) in grid">
+          <div class="cell flex justify-center items-center grow-1" v-for="cell in column">
             <div class="">{{ cell.cellValue }}</div>
           </div>
+          <div class="cell flex grow-1">
+            <q-btn @click="playToken(colIndex)" :disabled="counts[colIndex] >= 4 || (isAiActivated && activePlayer === players[1])" class="fit" color="primary q-pa-none" label="Play"/>
+          </div>
           
-          <q-btn @click="playToken(colIndex)" :disabled="counts[colIndex] >= 4 || (isAiActivated && activePlayer === players[1])" color="primary" class="cell" label="Play"/>
         </div>
       </div>
     </div>
@@ -269,9 +271,24 @@ export default {
 </script>
 <style lang="scss">
   .cell {
-    height: 80px;
-    width: 80px;
+    min-height: 60px;
+    min-width: 60px;
+    width: 20vw;
+    height: 20vw;
     border: 1px solid black;
+    flex: 1 1 max-content;
+    max-height: 120px;
+    max-width: 120px;
     
+  }
+  .grid-container-custom {
+     width: 100%;
+    height: 100%;
+    flex: 1 1 auto;
+  }
+  .column-custom {
+    width: 100%;
+    height: 100%;
+    flex: 1 1 auto;
   }
 </style>
