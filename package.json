@@ -1,6 +1,6 @@
 {
   "name": "puissance-4",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "A Quasar Framework app",
   "productName": "Puissance 4",
   "cordovaId": "org.cordova.quasar.app",
@@ -24,9 +24,9 @@
     "@quasar/app": "^1.0.0"
   },
   "engines": {
-    "node": ">= 10.18.1",
-    "npm": ">= 6.13.4",
-    "yarn": ">= 1.21.1"
+    "node": "13.8.0",
+    "npm": " 6.13.7",
+    "yarn": "1.22.0"
   },
   "browserslist": [
     "last 1 version, not dead, ie >= 11"
