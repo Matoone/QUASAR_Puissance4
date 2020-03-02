@@ -1,39 +1,53 @@
 <template>
-  <q-page class="column content-stretch fit">
-    <div class="flex justify-around q-pa-sm ">
-      <q-chip  :class="[player === activePlayer ? 'bg-positive' : '']" v-for="player in players" square>
-        <q-avatar>
-          <img :src="player.avatarUrl">
-        </q-avatar>
-        <q-chip v-show="player === players[1] && isAiActivated"> AI </q-chip>
-        {{ player.name }} : {{ player.score }}
-        
-      </q-chip>
+  <q-page >
+    <div class="flex justify-center q-pa-sm ">
+        <PlayerBar :player="player" :isAi="player === players[1] && isAiActivated" :class="[player === activePlayer ? 'bg-positive' : '']" v-for="player in players" />
      </div>
-    <div class="flex grow-2 grid-container-custom flex-center" v-if="!gameOver" @aiHasBennToggled>
-      <div class="row no-wrap justify-center flex ">
+    <div class="flex grid-container-custom column flex-center items-start" v-if="!gameOver" @aiHasBennToggled>
+      <div class="row no-wrap justify-center flex shadow-10">
         <div class="column reverse column-custom" v-for="(column, colIndex) in grid">
           <div class="cell flex justify-center items-center grow-1" v-for="cell in column">
-            <div class="">{{ cell.cellValue }}</div>
+            <h4 class="q-ma-none" >{{ cell.cellValue }}</h4>
           </div>
-          <div class="cell flex grow-1">
-            <q-btn @click="playToken(colIndex)" :disabled="counts[colIndex] >= 4 || (isAiActivated && activePlayer === players[1])" class="fit" color="primary q-pa-none" label="Play"/>
+          <div class="play-button-wrap flex grow-1">
+            <q-btn
+              :disabled="counts[colIndex] >= 4 || (isAiActivated && activePlayer === players[1])"
+              :ripple="{ color: 'black' }"
+              @click="playToken(colIndex)"
+              class="fit q-pa-none"
+              color="primary"
+              glossy
+              icon="fas fa-donate"
+              label="play"
+              push
+              stack
+              wait-for-ripple
+            />
           </div>
           
         </div>
+       
       </div>
+      
     </div>
     <div class="flex flex-center column" v-if="gameOver">
      <h3 class='text-center'> {{ gameOver }} </h3> 
      <q-separator color="secondary" inset />
-     <q-btn @click="nextRound()" push size="xl" color="positive" label="Play again" />
+     <q-btn @click="nextRound()" push size="xl" color="positive" label="Play again" class="shadow-2" />
     </div>
   </q-page>
 </template>
 
 <script>
+import Counter from 'components/Counter.vue'
+import PlayerBar from 'components/PlayerBar.vue'
+
 export default {
   name: 'PageIndex',
+  components: {
+    Counter,
+    PlayerBar,
+  },
   data() {
     return {
       grid: [
@@ -71,14 +85,14 @@ export default {
       console.log(`watched from game component ${newValue}`)
        if(newValue === true && this.activePlayer.token === '⬤') {
         setTimeout(this.aiPlayToken, 500) 
-      } 
-    }
+      }
+    },
   },
   computed: {
     isAiActivated: {
       get () {
-      return this.$store.state.isAiToggled
-    }
+        return this.$store.state.isAiToggled
+      },
     },
     gameOver() {
       if(this.isXVictory) {
@@ -275,13 +289,23 @@ export default {
   .cell {
     min-height: 60px;
     min-width: 60px;
-    width: 20vw;
-    height: 20vw;
+    width: 23vw;
+    height: 23vw;
     border: 1px solid black;
     flex: 1 1 max-content;
     max-height: 120px;
     max-width: 120px;
     
+  }
+  .play-button-wrap {
+   min-height: 60px;
+    min-width: 60px;
+    width: 23vw;
+    height: 23vw;
+    
+    flex: 1 1 max-content;
+    max-height: 120px;
+    max-width: 120px;
   }
   .grid-container-custom {
      width: 100%;
@@ -292,5 +316,11 @@ export default {
     width: 100%;
     height: 100%;
     flex: 1 1 auto;
+  }
+  .play-button :hover {
+    background-color: $accent ;
+  }
+  .play-button {
+    background-color: $secondary ;
   }
 </style>

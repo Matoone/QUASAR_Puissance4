@@ -1,9 +1,13 @@
+
 <template>
+
   <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
-      <q-toolbar>
+     <q-header class="gt-xs" elevated>
+      <q-toolbar >
         <q-btn
+          :ripple="{ color: 'yellow' }"
           flat
+          push
           dense
           round
           icon="menu"
@@ -12,21 +16,39 @@
         />
         
       </q-toolbar>
-      <div class="q-px-lg q-pt-xl q-mb-md">
+      <div class="q-px-md q-pt-lg q-mb-md">
         <div class="text-h3">Puissance 4</div>
         <div class="text-subtitle1">{{ todaysDate }}</div>
       </div>
       <q-img src="statics/road.jpg" class="header-image absolute-top"></q-img>
     </q-header>
 
+    <q-header class="xs" elevated>
+     <q-toolbar>
+        <q-btn
+          :ripple="{ color: 'yellow' }"
+          flat
+          push
+          dense
+          round
+          icon="fas fa-dice-four"
+          aria-label="Menu"
+          @click="leftDrawerOpen = !leftDrawerOpen"
+        />
+      
+        <p class="no-margin q-pl-sm" >Puissance 4</p>
+      </q-toolbar>
+    </q-header>
+   
     <q-drawer
+      gt-sm
       v-model="leftDrawerOpen"
       show-if-above
-      :width="250"
+      :width="150"
       :breakpoint="600"
     >
       <q-scroll-area
-        style="height: calc(100% - 192px); margin-top: 192px; border-right: 1px solid #ddd"
+        style="height: calc(100% - 168px); margin-top: 168px; border-right: 1px solid #ddd"
       >
         <q-list padding>
           <q-item to="/" exact clickable v-ripple>
@@ -50,7 +72,7 @@
         </q-list>
       </q-scroll-area>
 
-      <q-img class="absolute-top" src="statics/road.jpg" style="height: 192px">
+      <q-img class="absolute-top" src="statics/road.jpg" style="height: 168px">
         <div class="absolute-bottom bg-transparent">
           <q-avatar size="56px" class="q-mb-sm">
             <img
