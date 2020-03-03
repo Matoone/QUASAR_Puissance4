@@ -8,9 +8,11 @@
       {{ player.token }}
     </div>
     <q-input dark borderless v-model="player.name" input-class="text-left text-bold text-accent" class="q-ml-xs">
+      
     </q-input>
+     <q-chip v-show="isAi">AI</q-chip>
     Score: {{ player.score }} 
-    <q-chip v-show="isAi">AI</q-chip>
+   
   </q-chip>
       
 </template>

@@ -1,11 +1,11 @@
 <template>
   <q-page >
     <div class="flex justify-center q-pa-sm ">
-        <PlayerBar :player="player" :isAi="player === players[1] && isAiActivated" :class="[player === activePlayer ? 'bg-positive' : '']" v-for="player in players" />
+        <PlayerBar class="player-bar" :player="player" :isAi="player === players[1] && isAiActivated" :class="[player === activePlayer ? 'bg-positive' : '']" v-for="player in players"  :key="player.token" />
      </div>
     <div class="flex grid-container-custom column flex-center items-start" v-if="!gameOver" @aiHasBennToggled>
       <div class="row no-wrap justify-center flex shadow-10">
-        <div class="column reverse column-custom" v-for="(column, colIndex) in grid">
+        <div class="column reverse column-custom" v-for="(column, colIndex) in grid" :key="colIndex">
           <div class="cell flex justify-center items-center grow-1" v-for="cell in column">
             <h4 class="q-ma-none" >{{ cell.cellValue }}</h4>
           </div>
@@ -322,5 +322,8 @@ export default {
   }
   .play-button {
     background-color: $secondary ;
+  }
+  .player-bar {
+    
   }
 </style>
